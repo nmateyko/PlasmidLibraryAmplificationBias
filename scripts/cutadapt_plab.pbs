@@ -13,4 +13,4 @@
 cd $PBS_O_WORKDIR
 source /arc/software/spack/opt/spack/linux-centos7-x86_64/gcc-5.4.0/miniconda3-4.6.14-f4hr756q34tvp7nsjn7hovq46fomaww6/etc/profile.d/conda.sh
 conda activate plab
-cutadapt --untrimmed-o untrimmed1.fastq.gz --untrimmed-p untrimmed2.fastq.gz -m 80 --too-short-o too_short1.fastq.gz --too-short-p too_short2.fastq.gz -a ^TGCATTTTTTTCACATC...GGTTACGGCTGTT -A ^AACAGCCGTAACC...CTACACTTTTTTTACGT -o out.1.fastq.gz -p out.2.fastq.gz /arc/project/st-cdeboer-1/nick/PlasmidLibraryAmplificationBias/data/PLAB_1_read1.fastq.gz /arc/project/st-cdeboer-1/nick/PlasmidLibraryAmplificationBias/data/PLAB_1_read2.fastq.gz
+cutadapt --untrimmed-o untrimmed1.fastq.gz --untrimmed-p untrimmed2.fastq.gz -m 80 --too-short-o too_short1.fastq.gz --too-short-p too_short2.fastq.gz -M 80 --too-long-o too_long1.fastq.gz --too-long-p too_long2.fastq.gz -a ^TGCATTTTTTTCACATC...GGTTACGGCTGTT -A ^AACAGCCGTAACC...GATGTGAAAAAAATGCA -o out.1.fastq.gz -p out.2.fastq.gz /arc/project/st-cdeboer-1/nick/PlasmidLibraryAmplificationBias/data/PLAB_1_read1.fastq.gz /arc/project/st-cdeboer-1/nick/PlasmidLibraryAmplificationBias/data/PLAB_1_read2.fastq.gz
