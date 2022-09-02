@@ -1,0 +1,10 @@
+1 PLAB_1_read1.fastq.gz PLAB_1_read2.fastq.gz
+2 PLAB_1_read2.fastq.gz PLAB_2_read2.fastq.gz
+3 PLAB_1_read3.fastq.gz PLAB_3_read2.fastq.gz
+4 PLAB_1_read4.fastq.gz PLAB_4_read2.fastq.gz
+5 PLAB_1_read5.fastq.gz PLAB_5_read2.fastq.gz
+6 PLAB_1_read6.fastq.gz PLAB_6_read2.fastq.gz
+7 PLAB_1_read7.fastq.gz PLAB_7_read2.fastq.gz
+8 PLAB_1_read8.fastq.gz PLAB_8_read2.fastq.gz
+9 PLAB_1_read9.fastq.gz PLAB_9_read2.fastq.gz
+10 PLAB_1_read10.fastq.gz PLAB_10_read2.fastq.gz
