@@ -20,9 +20,15 @@ args = parser.parse_args()
 clusterer = UMIClusterer(cluster_method="directional")
 
 with gzip.open(args.inFP, 'rt') as inFile:
-  seqs = inFile.read().splitlines() 
-  print(len(seqs))
-  counts = dict(Counter(seqs))
-  print(len(counts))
-  clustered = clusterer(counts, threshold=2)
-  print(len(clustered))
+  seqs = inFile.read().splitlines()
+  
+seqs = [seq.encode() for seq in seqs] 
+print(len(seqs))
+counts = dict(Counter(seqs))
+clustered = clusterer(counts, threshold=2)
+for cluster in clustered:
+  sum = 0
+  for seq in cluster:
+    sum += counts[seq]
+  print(cluster[0])
+  print(sum)
