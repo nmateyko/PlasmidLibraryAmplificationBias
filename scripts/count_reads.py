@@ -15,6 +15,7 @@ parser.add_argument('-i', dest='inFP',	metavar='<inFile>', help='Input file', re
 parser.add_argument('-o', dest='outFP', metavar='<outFile>', help='Where to output results', required=True)
 parser.add_argument('-d', dest='downsample', type=int, metavar='<downsample n>', help='Number of reads to downsample to')
 parser.add_argument('-l', dest='logFP', metavar='<logFile>', help='Where to output errors/warnings', required=True)
+parser.add_argument('-t', dest='threshold', type=int, default=2, help='Threshold for umi clustering')
 
 args = parser.parse_args()
 clusterer = UMIClusterer(cluster_method="directional")
@@ -26,7 +27,7 @@ seqs = [seq.encode() for seq in seqs]
 if args.downsample: 
   seqs = random.sample(seqs, args.downsample)
 counts = dict(Counter(seqs))
-clustered = clusterer(counts, threshold=2)
+clustered = clusterer(counts, threshold=args.threshold)
 cluster_counts = []
 
 for cluster in clustered:
