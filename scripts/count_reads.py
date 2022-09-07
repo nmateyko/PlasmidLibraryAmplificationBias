@@ -4,16 +4,16 @@
 # for sequencing errors or mutations during plasmid amplification/library prep.
 
 import gzip
-import sys
 import argparse
 from collections import Counter
-import matplotlib.pyplot as plt
 import numpy as np
+import random
 from umi_tools import UMIClusterer
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', dest='inFP',	metavar='<inFile>', help='Input file', required=True)
 parser.add_argument('-o', dest='outFP', metavar='<outFile>', help='Where to output results', required=True)
+parser.add_argument('-d', dest='downsample', type=int, metavar='<downsample n>', help='Number of reads to downsample to', required=True)
 parser.add_argument('-l', dest='logFP', metavar='<logFile>', help='Where to output errors/warnings', required=True)
 
 args = parser.parse_args()
@@ -24,6 +24,7 @@ with gzip.open(args.inFP, 'rt') as inFile:
   
 seqs = [seq.encode() for seq in seqs] 
 print(len(seqs))
+seqs = random.sample(seqs, args.downsample)
 counts = dict(Counter(seqs))
 clustered = clusterer(counts, threshold=2)
 cluster_counts = []
