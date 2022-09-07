@@ -8,13 +8,13 @@ import sys
 import argparse
 from collections import Counter
 import matplotlib.pyplot as plt
+import numpy as np
 from umi_tools import UMIClusterer
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', dest='inFP',	metavar='<inFile>', help='Input file', required=True)
 parser.add_argument('-o', dest='outFP', metavar='<outFile>', help='Where to output results', required=True)
 parser.add_argument('-l', dest='logFP', metavar='<logFile>', help='Where to output errors/warnings', required=True)
-parser.add_argument('-v', dest='verbose', action='count', help='Verbose output?', required=False, default=0)
 
 args = parser.parse_args()
 clusterer = UMIClusterer(cluster_method="directional")
@@ -26,9 +26,14 @@ seqs = [seq.encode() for seq in seqs]
 print(len(seqs))
 counts = dict(Counter(seqs))
 clustered = clusterer(counts, threshold=2)
+cluster_counts = []
 for cluster in clustered:
   sum = 0
   for seq in cluster:
     sum += counts[seq]
-  print(cluster[0])
-  print(sum)
+  cluster_counts.append(sum)
+
+print(np.array(cluster_counts))
+with open(args.outFP, 'wb') as f:
+  np.save(f, cluster_counts)
+
