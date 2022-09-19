@@ -16,20 +16,21 @@ parser.add_argument('-o', dest='outFP', metavar='<outFile>', help='Where to outp
 parser.add_argument('-d', dest='downsample', type=int, metavar='<downsample n>', help='Number of reads to downsample to')
 parser.add_argument('-l', dest='logFP', metavar='<logFile>', help='Where to output errors/warnings', required=True)
 parser.add_argument('-t', dest='threshold', type=int, default=2, help='Threshold for umi clustering')
-
 args = parser.parse_args()
+
 clusterer = UMIClusterer(cluster_method="directional")
 
 with gzip.open(args.inFP, 'rt') as inFile:
   seqs = inFile.read().splitlines()
-  
-seqs = [seq.encode() for seq in seqs]
+seqs = [seq.encode() for seq in seqs] # UMI_tools requires binary encoded sequences
 if args.downsample: 
   seqs = random.sample(seqs, args.downsample)
 counts = dict(Counter(seqs))
 clustered = clusterer(counts, threshold=args.threshold)
-cluster_counts = []
 
+# For each cluster of similar sequences, sum the number of occurrences
+# of each sequence in the cluster to get the total count for that cluster.
+cluster_counts = []
 for cluster in clustered:
   sum = 0
   for seq in cluster:
