@@ -22,10 +22,9 @@ def readFastq(fastqfile):
         else:
             raise ValueError("Invalid header lines: %s and %s for seq %s" % (header1, header2, seq))
 
-def starcode_clusters_to_counter(clustered_path, fastq_path):
-  with open(fastq_path, 'r') as f:
-    parsed_fastq = readFastq(f)
-    reads = [seq for _, seq, _ in parsed_fastq]
+def starcode_clusters_to_counter(clustered_path, unclustered_path):
+  with open(unclustered_path, 'r') as f:
+    reads = [line.strip() for line in f]
   with open(clustered_path, 'r') as f:
     clustered_lines = [tuple(line) for line in csv.reader(f, delimiter='\t')]
 

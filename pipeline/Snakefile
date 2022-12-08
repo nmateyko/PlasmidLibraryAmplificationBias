@@ -1,9 +1,13 @@
 configfile: "test_config.yaml"
 
 def get_PE_input_fastqs(wildcards):
-  sample_suffix = config["samples"][wildcards.sample]
-  data_dir = "/arc/project/st-cdeboer-1/GSC-seq/2022-08-17_Omar_Nick"
-  return [f"{data_dir}/HNJKLDSX3_2_1_{sample_suffix}", f"{data_dir}/HNJKLDSX3_2_2_{sample_suffix}"]
+  if wildcards.sample == "test":
+    return ["test/test_r1.fastq.gz", "test/test_r2.fastq.gz"]
+
+  else:
+    sample_suffix = config["samples"][wildcards.sample]
+    data_dir = "/arc/project/st-cdeboer-1/GSC-seq/2022-08-17_Omar_Nick"
+    return [f"{data_dir}/HNJKLDSX3_2_1_{sample_suffix}", f"{data_dir}/HNJKLDSX3_2_2_{sample_suffix}"]
 
 
 rule all:
@@ -43,55 +47,29 @@ rule cutadapt_trim_PE:
     "-a {params.a1} -A {params.a2} -o {output.r1} -p {output.r2} {input} > {log.summary}"
 
 
-rule ngmerge:
+rule pair:
   input:
     r1="output/trimmed/{sample}_1.fastq",
     r2="output/trimmed/{sample}_2.fastq"
   output: 
-    temp("output/paired/{sample}.fastq")
+    temp("output/paired/{sample}.txt")
   log:
-    "output/logs/NGmerge/NGmerge_failed_{sample}"
+    "output/logs/pair/pairing_failed_{sample}.log"
   conda:
     "environment.yaml"
   threads: 1
   resources:
     mem_mb=4800,
     walltime="00:20:00"
-  shell:
-    "NGmerge -1 {input.r1} -2 {input.r2} -o {output} -y -f {log} -n {threads}"
-
-
-rule filter_length:
-  input:
-    "output/paired/{sample}.fastq"
-  output:
-    temp("output/length_filtered/{sample}.fastq")
-  log:
-    too_short="output/logs/length_filter/too_short_{sample}.fastq.gz",
-    too_long="output/logs/length_filter/too_long_{sample}.fastq.gz",
-  conda:
-    "environment.yaml"
-  params:
-    desired_len=80,
-    too_short=79,
-    too_long=81,
-  threads: 1
-  resources:
-    mem_mb=4800,
-    walltime="00:20:00"
-  shell:
-    """
-    seqkit seq {input} -m {params.desired_len} -M {params.desired_len} -j {threads} -o {output}
-    seqkit seq {input} -M {params.too_short} -j {threads} -o {log.too_short}
-    seqkit seq {input} -m {params.too_long} -j {threads} -o {log.too_long}
-    """
+  script:
+    "scripts/pair_reads.py"
     
 
 rule cluster:
   input:
-    "output/length_filtered/{sample}.fastq"
+    "output/paired/{sample}.txt"
   output:
-    temp("output/clustered/{sample}.txt")
+    "output/clustered/{sample}.txt"
   log:
     "output/logs/starcode/{sample}_starcode.log"
   conda:
@@ -106,9 +84,9 @@ rule cluster:
     "starcode -i {input} -o {output} --print-clusters --seq-id -c -t {threads} -d {params.distance} > {log}"
 
 
-rule make_counter:
+rule counter:
   input:
-    "output/length_filtered/{sample}.fastq",
+    "output/paired/{sample}.txt",
     "output/clustered/{sample}.txt"
   output:
     "output/counts/{sample}.pkl"
