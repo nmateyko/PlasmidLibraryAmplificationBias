@@ -1,0 +1,11 @@
+samples:
+  liquid_1: CGACTAGG-CAATGGTA_150bp.concat.fastq.gz
+  semisolid_1: TAGGCTAA-ATGCTCTT_150bp.concat.fastq.gz
+  small_spread_1: AAGATGGT-TATCGAGA_150bp.concat.fastq.gz
+  bead_1: AGGAGTTA-TCACCGCT_150bp.concat.fastq.gz
+  large_spread_1: TAGAGGCT-CGTGGAGT_150bp.concat.fastq.gz
+  liquid_2: CGATGGTG-CACTACTT_150bp.concat.fastq.gz
+  semisolid_2: TTCCAATC-TAGCGTAA_150bp.concat.fastq.gz
+  small_spread_2: CTGAGAGG-CGTAGCTA_150bp.concat.fastq.gz
+  bead_2: CGCTTCCT-TCAGTGGT_150bp.concat.fastq.gz
+  large_spread_2: TAACATGC-ATGAGTGT_150bp.concat.fastq.gz

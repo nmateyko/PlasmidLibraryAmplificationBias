@@ -2,3 +2,6 @@ data/
 __pycache__/
 .ipynb_checkpoints/
 PLAB.egg-info/
+output/
+job_logs/
+.snakemake/

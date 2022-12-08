@@ -1,0 +1,1 @@
+# This script generates two test fastq.gz files (read 1 and read 2) 
