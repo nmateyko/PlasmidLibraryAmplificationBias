@@ -9,3 +9,4 @@ samples:
   small_spread_2: CTGAGAGG-CGTAGCTA_150bp.concat.fastq.gz
   bead_2: CGCTTCCT-TCAGTGGT_150bp.concat.fastq.gz
   large_spread_2: TAACATGC-ATGAGTGT_150bp.concat.fastq.gz
+  test: test

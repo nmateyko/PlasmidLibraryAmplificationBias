@@ -1,4 +1,4 @@
-configfile: "test_config.yaml"
+configfile: "pipeline_config.yaml"
 
 def get_PE_input_fastqs(wildcards):
   if wildcards.sample == "test":
@@ -69,7 +69,7 @@ rule cluster:
   input:
     "output/paired/{sample}.txt"
   output:
-    "output/clustered/{sample}.txt"
+    temp("output/clustered/{sample}.txt")
   log:
     "output/logs/starcode/{sample}_starcode.log"
   conda:
@@ -84,7 +84,7 @@ rule cluster:
     "starcode -i {input} -o {output} --print-clusters --seq-id -c -t {threads} -d {params.distance} > {log}"
 
 
-rule counter:
+rule count:
   input:
     "output/paired/{sample}.txt",
     "output/clustered/{sample}.txt"
