@@ -14,6 +14,7 @@ rule all:
     input:
         expand("output/counts/{sample}.pkl", sample=config["samples"])
 
+
 rule sample:
     input:
         get_input_fastqs
@@ -28,19 +29,24 @@ rule sample:
     resources:
         mem_mb=4800,
         walltime="00:20:00"
-    run:
-        if wildcards.sample in {"liquid_1", "liquid_2", "test"}:
-            shell("cp {input[0]} {output.r1}.gz")
-            shell("cp {input[1]} {output.r2}.gz")
-            shell("gunzip {output.r1}.gz")
-            shell("gunzip {output.r2}.gz")
+    shell:
+        """
+            sample="{wildcards.sample}"
+            if [[ $sample =~ liquid|test ]]; then
+                cp {input[0]} {output.r1}.gz
+                cp {input[1]} {output.r2}.gz
+                gunzip {output.r1}.gz
+                gunzip {output.r2}.gz
+            elif [[ $sample == *"1"* ]]; then
+                seqtk sample -2 -s 42 {input[0]} 2114432 > {output.r1}
+                seqtk sample -2 -s 42 {input[1]} 2114432 > {output.r2}
+            elif [[ $sample == *"2"* ]]; then
+                seqtk sample -2 -s 42 {input[0]} 5034918 > {output.r1}
+                seqtk sample -2 -s 42 {input[1]} 5034918 > {output.r2}
+            fi
 
-        elif wildcards.sample[-1] == "1":
-            shell("seqtk sample -s 42 {input[0]} 211443 > {output[0]}")
-        else:
-            shell("seqtk sample -s 42 {input[0]} 211443 > {output[0]}")
-
-        shell("cat {output.r1} | wc -l > {log}")
+            cat {output.r1} | wc -l > {log}
+        """
 
 
 rule cutadapt_trim_PE:

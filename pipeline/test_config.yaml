@@ -1,3 +1,2 @@
 samples:
-    liquid_1: CGACTAGG-CAATGGTA_150bp.concat.fastq.gz
-    test: test
+    large_spread_2: TAACATGC-ATGAGTGT_150bp.concat.fastq.gz

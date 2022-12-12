@@ -1,7 +1,6 @@
 import csv
 import pickle
 from collections import Counter
-from myutils import readFastq
 
 def starcode_clusters_to_counter(clustered_path, unclustered_path):
     with open(unclustered_path, 'r') as f:
