@@ -6,3 +6,4 @@ PLAB.egg-info/
 output/
 job_logs/
 .snakemake/
+*.svg
