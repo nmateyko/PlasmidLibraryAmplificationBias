@@ -7,3 +7,5 @@ output/
 job_logs/
 .snakemake/
 *.svg
+*.png
+*.ai
