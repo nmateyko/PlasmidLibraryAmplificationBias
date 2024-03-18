@@ -1,0 +1,21 @@
+samples:
+  liquid_1: CCGTACAT-TTCAGTTG
+  semisolid_1: TACCTGGT-AGACCTCA
+  bead_1: AATGCCAA-ACGCACAA
+  small_plate_1: CTAGAACC-TTAGACCA
+  large_plate_1: ACTGGAAT-TTCACAGA
+  liquid_2: AGCATAGT-CTCGACTG
+  semisolid_2: TAACACCT-CTTGTTGG
+  bead_2: CAATGTGC-CATTACAG
+  small_plate_2: TCGATGCC-ACAACCGT
+  large_plate_2: TCTAACGC-AGTGATGA
+  liquid_3: CCAATAGT-TGGAGCAA
+  semisolid_3: AGCAGTCT-TGCGAATT
+  bead_3: ACTATTGC-ACACAGGA
+  small_plate_3: TACGATTC-CTCTTCCG
+  large_plate_3: TGCAGTGG-AAGAAGCT
+  liquid_4: TGCGAGGA-TAACCGTA
+  semisolid_4: ACGCCACA-TGGTTCGG
+  bead_4: CTTCGGTC-TAACGATG
+  small_plate_4: ACGGAGGT-AACTCTCG
+  large_plate_4: AGAATCAG-CTGTCGTA
