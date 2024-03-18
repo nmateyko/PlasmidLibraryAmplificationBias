@@ -9,3 +9,5 @@ job_logs/
 *.svg
 *.png
 *.ai
+cluster_logs/
+modules/
