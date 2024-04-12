@@ -11,3 +11,4 @@ job_logs/
 *.ai
 cluster_logs/
 modules/
+*.pkl
